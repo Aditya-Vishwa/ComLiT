@@ -48,6 +48,7 @@ function welcome
 	then
 		clear
 		echo "-----You're Successfully Signed Up-----"
+		clear
 		log_in
 	else
 		echo -e "\nPassword Mismatch. Try Again..."
