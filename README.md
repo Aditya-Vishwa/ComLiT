@@ -13,8 +13,8 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
 
 - **Provide a prompt for the user to sign-up and sign-in**
   - Sign In
-   1. Take Test
-   2. View Test
+    1. Take Test
+    2. View Test
   - Sign Up
   - Exit
 - **Using sign-up user can register with a user-id and password**
