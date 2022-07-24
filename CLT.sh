@@ -3,6 +3,9 @@
 # ~/Command Line Test/CLT.sh
 
 clear
+
+#--------------------------------Welcome--------------------------------#
+
 function welcome
 {
 	echo "-----Welcome To Command Line Test By Aditya-----"
@@ -13,154 +16,140 @@ function welcome
 	echo "Note: Script Exit on Timeout."
 	read -p "Please choose your option: " opt
 }
-#if [[ $opt -eq 1 ]]
-#then
-#	clear
-	function log_in
-	{
-		echo "-----Login-----"
-		read -p "Enter Your Username: " username
-		read -sp "Enter Your Password: " password
-		if [[ $username == "" ]] && [[ $password == "" ]]
-		then
-			clear
-			echo "Welcome To Your Test"
-			echo "1. Take Test"
-			echo "2. View Test"
-			echo "3. Back"
-			read -p "Please choose your option: " op
-		else
-			echo -e "\nInvalid Credentials. Try  Again..."
-		fi
-	}
-		function take_test
-		{
-			echo "This is working"
-		}
-		function view_test
-		{
-			echo "This is also working"
-		}
-#fi
-#if [[ $opt -eq 2 ]]
-#then
-#	clear
-	function sign_up
-	{
-		echo "-----Sign Up and Register-----"
-		read -p "Enter Your Name: " name
-		read -p "Enter Your Username: " user
-		read -p "Enter Your Password: " pass
-		read -sp "Confirm Your Password: " cpass
-	if [[ $pass == $cpass ]]
-	then
-		clear
-		echo "-----You're Successfully Signed Up-----"
-		sleep 1
-		clear
-		echo "loading"
-		sleep 1
-		clear
-		echo "loading."
-		sleep 1
-		clear
-		echo "loading.."
-		sleep 1
-		clear
-		echo "loading..."
-		sleep 1
-		clear
-		echo "loading"
-		sleep 1
-		clear
-		echo "loading."
-		sleep 1
-		clear
-		echo "loading.."
-		sleep 1
-		clear
-		echo "loading..."
-		clear
-		log_in
-	else
-		echo -e "\nPassword Mismatch. Try Again..."
-	fi
-	}
-	function countdown
-	{
-		clear
-		echo "00:00:10"
-		sleep 1
-		clear
-		echo "00:00:09"
-		sleep 1
-		clear
-		echo "00:00:08"
-		sleep 1
-		clear
-		echo "00:00:07"
-		sleep 1
-		clear
-		echo "00:00:06"
-		sleep 1
-		clear
-		echo "00:00:05"
-		sleep 1
-		clear
-		echo "00:00:04"
-		sleep 1
-		clear
-		echo "00:00:03"
-		sleep 1
-		clear
-		echo "00:00:02"
-		sleep 1
-		clear
-		echo "00:00:01"
-		sleep 1
-		clear
-	}
-#fi
+
+#--------------------------------Authentication--------------------------------#
+
+function authentication
+{
+	echo "-----Login-----"
+	read -p "Enter Your Username: " username
+	read -sp "Enter Your Password: " password
+}
+
+#--------------------------------Login--------------------------------#
+
+function log_in
+{	
+	echo "Welcome To Your Test"
+	echo "1. Take Test"
+	echo "2. View Test"
+	echo "3. Back"
+	read -p "Please choose your option: " op
+}
+
+#--------------------------------Take Test--------------------------------#
+
+function take_test
+{
+	echo "This is working"
+}
+
+#--------------------------------View Test--------------------------------#
+
+function view_test
+{
+	echo "This is also working"
+}
+
+#--------------------------------Sign Up--------------------------------#
+
+function sign_up
+{
+	echo "-----Sign Up and Register-----"
+	read -p "Enter Your Name: " name
+	read -p "Enter Your Username: " user
+	read -p "Enter Your Password: " pass
+	read -sp "Confirm Your Password: " cpass
+}
+
+#--------------------------------Infinite Loading--------------------------------#
+
+function iloading
+{
+	while true;
+	do
+    	# Frame #1
+    	printf "\r< Loading." 
+    	sleep 0.5
+    	# Frame #2 
+    	printf "\r> Loading.." 
+    	sleep 0.5 
+		# Frame #3
+    	printf "\r> Loading..." 
+    	sleep 0.5
+	done
+}
+
+#--------------------------------Loading--------------------------------#
+
+function loading
+{
+	clear
+	echo "loading"
+	sleep 0.5
+	clear
+	echo "loading."
+	sleep 0.5
+	clear
+	echo "loading.."
+	sleep 0.5
+	clear
+	echo "loading..."
+	sleep 0.5
+	clear
+}
+
+#--------------------------------Countdown--------------------------------#
+	
+function countdown
+{
+ hour=00
+ min=00
+ sec=10
+        while [ $hour -ge 0 ]; do
+                 while [ $min -ge 0 ]; do
+                         while [ $sec -ge 0 ]; do
+                                 echo -ne "$hour:$min:$sec\033[0K\r"
+                                 let "sec=sec-1"
+                                 sleep 1
+                         done
+                         sec=59
+                         let "min=min-1"
+                 done
+                 min=59
+                 let "hour=hour-1"
+         done
+}
+
+#--------------------------------Main--------------------------------#
 
 welcome
 if [[ $opt -eq 1 ]]
 then
-        clear
-	log_in
-	if [[ $op -eq 1 ]]
+	clear
+	authentication
+	if [[ $username=="" && $password=="" ]]
 	then
-		clear
-		take_test
+		clear	
+		log_in
 	else
-		if [[ $op -eq 2 ]]
-		then
-			clear
-			view_test
-		else
-			if [[ $op -eq 3 ]]
-			then
-				clear
-				welcome
-			else
-				echo "Invalid Option. Choose a correct option."
-				sleep 1
-				echo "You are logged Out"
-				sleep 1
-				echo "Please, Login Again after 10 sec"
-				sleep 1
-				countdown
-				sleep 1
-				log_in
-			fi
-		fi
+		echo "Invalid Credentials. Please Try Again..."
+		authentication
 	fi
 else
 	if [[ $opt -eq 2 ]]
 	then
-        	clear
+		clear
 		sign_up
 	else
-		exit 0
+		if [[ $opt -eq 3 ]]
+		then
+			exit 0
+		else
+			echo "Invalid Option. Try Again after 10 sec..."
+			countdown
+			clear
+			welcome
+		fi
 	fi
-
 fi
