@@ -2,12 +2,11 @@
 # CLT.sh
 # ~/Command Line Test/CLT.sh
 
-clear
-
 #--------------------------------Welcome--------------------------------#
 
 function welcome
 {
+	clear
 	echo "-----Welcome To Command Line Test By Aditya-----"
 	echo "Login/Register"
 	echo "1. Sign in"
@@ -15,26 +14,73 @@ function welcome
 	echo "3. Exit"
 	echo "Note: Script Exit on Timeout."
 	read -p "Please choose your option: " opt
+	if [[ $opt -eq 1 ]]
+	then
+		sign_in
+	else
+		if [[ $opt -eq 2 ]]
+		then
+			sign_up
+		else
+			if [[ $opt -eq 3 ]]
+			then
+				exit 0
+			else
+				echo "Invalid Option. Choose a correct option..."
+				welcome
+			fi
+		fi
+	fi
 }
 
 #--------------------------------Authentication--------------------------------#
 
 function authentication
 {
-	echo "-----Login-----"
+	clear
+	echo "-----Sign in-----"
 	read -p "Enter Your Username: " username
 	read -sp "Enter Your Password: " password
+	if [[ $username -eq "Aditya" ]] && [[ $password -eq "1234" ]]
+	then
+		log_in
+	else
+		echo -e "\nInvalid Credentials. Try Again After 10 SEC..."
+		countdown
+		clear
+		authentication
+	fi
 }
 
-#--------------------------------Login--------------------------------#
+#--------------------------------Sign in--------------------------------#
 
-function log_in
+function sign_in
 {	
+	authentication
+	clear
 	echo "Welcome To Your Test"
 	echo "1. Take Test"
 	echo "2. View Test"
 	echo "3. Back"
 	read -p "Please choose your option: " op
+	if [[ $op -eq 1 ]]
+	then
+		take_test
+	else
+		if [[ $op -eq 2 ]]
+		then
+			view_test
+		else
+			if [[ $op -eq 3 ]]
+			then
+				welcome
+			else
+				echo "Invalid Option. Try Again..."
+				sleep 1
+				sign_in
+			fi
+		fi
+	fi
 }
 
 #--------------------------------Take Test--------------------------------#
@@ -55,11 +101,25 @@ function view_test
 
 function sign_up
 {
+	clear
 	echo "-----Sign Up and Register-----"
 	read -p "Enter Your Name: " name
 	read -p "Enter Your Username: " user
 	read -p "Enter Your Password: " pass
 	read -sp "Confirm Your Password: " cpass
+	if [[ $pass -eq $cpass ]]
+	then
+		echo -e "\nYou're successfully signed up. Please Wait..."
+		sleep 1
+		echo -e "\nWe are redirecting you to Sign in"
+		sleep 1
+		loading
+		sign_in
+	else
+		echo -e "\nPassword Mismatch. Try Again After 10 SEC"
+		countdown
+		sign_up
+	fi
 }
 
 #--------------------------------Infinite Loading--------------------------------#
@@ -124,32 +184,3 @@ function countdown
 #--------------------------------Main--------------------------------#
 
 welcome
-if [[ $opt -eq 1 ]]
-then
-	clear
-	authentication
-	if [[ $username=="" && $password=="" ]]
-	then
-		clear	
-		log_in
-	else
-		echo "Invalid Credentials. Please Try Again..."
-		authentication
-	fi
-else
-	if [[ $opt -eq 2 ]]
-	then
-		clear
-		sign_up
-	else
-		if [[ $opt -eq 3 ]]
-		then
-			exit 0
-		else
-			echo "Invalid Option. Try Again after 10 sec..."
-			countdown
-			clear
-			welcome
-		fi
-	fi
-fi
