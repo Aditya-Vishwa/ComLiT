@@ -3,7 +3,7 @@ name: Feature request
 about: Suggest an idea for this project
 title: Features
 labels: bug, enhancement, help wanted
-assignees: Aditya-Vishwa
+assignees: Aditya-Vishwa, Monica-Maravi
 
 ---
 
