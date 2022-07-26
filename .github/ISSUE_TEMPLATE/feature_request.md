@@ -1,9 +1,9 @@
 ---
 name: Feature request
 about: Suggest an idea for this project
-title: ''
+title: Features
 labels: bug, enhancement, help wanted
-assignees: ''
+assignees: Aditya-Vishwa
 
 ---
 
