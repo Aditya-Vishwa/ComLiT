@@ -46,3 +46,6 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
 - **Time-out**
   - The script should time out if the user input is absent for more than 10 seconds on the main menu
   
+## Installation
+ 
+ - **Clone this repository**
