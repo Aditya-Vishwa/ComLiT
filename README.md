@@ -50,7 +50,7 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
  
 - **Clone this repository:**
 `````
-git clone gh repo clone Aditya-Vishwa/Command-Line-Test
+git clone https://github.com/Aditya-Vishwa/Command-Line-Test.git
 `````
 - **Go inside the directory:**
 `````
