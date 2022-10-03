@@ -48,4 +48,24 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
   
 ## Installation
  
- - **Clone this repository**
+- **Clone this repository:**
+`````
+git clone 
+`````
+- **Go inside the directory:**
+`````
+cd 'Command Line Test-Master'
+`````
+- **Change Mode of the file:**
+`````
+sudo chmod +x CLT.sh
+`````
+- **Run the script by using:**
+`````
+bash CLT.sh
+`````
+OR
+`````
+./CLT.sh
+`````
+- **And Done.**
