@@ -50,11 +50,11 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
  
 - **Clone this repository:**
 `````
-git clone 
+git clone gh repo clone Aditya-Vishwa/Command-Line-Test
 `````
 - **Go inside the directory:**
 `````
-cd 'Command Line Test-Master'
+cd Command-Line-Test
 `````
 - **Change Mode of the file:**
 `````
