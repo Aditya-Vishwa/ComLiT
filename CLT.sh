@@ -185,67 +185,6 @@ function take_test
     done
 }
 
-#--------------------------------Result--------------------------------#
-
-echo "-----------------------------------" >> reportcard.txt
-                                echo "          Report Card              " >> reportcard.txt
-                                echo "-----------------------------------" >> reportcard.txt
-                                k=0
-                                result=(`cat result.txt`)                      # store contents of result.txt file in an array
-                                for i in `seq 5 5 $qbank_lines`                # loop to display the detailed report card to the user after exam
-                                do
-                                    cat questionbank.txt | head -$i | tail -5 >> reportcard.txt
-                                    if [ ${result[$k]} = "correct" ]                                                     # store if answer is correct in green
-                                    then
-                                        echo -e "\e[32mCorrect Answer!" >> reportcard.txt
-                                        echo -e "\e[32mOption Selected: ${user_ans[`echo "$i / 5 - 1" | bc`]}" >> reportcard.txt
-                                    elif [ ${result[$k]} = "wrong" ]                                                     # store if answer is wrong in red
-                                    then
-                                        echo -e "\e[31mWrong Answer!"  >> reportcard.txt
-                                        echo -ne "\e[31mOption Selected: ${user_ans[`echo "$i / 5 - 1" | bc`]}, " >> reportcard.txt
-                                        echo -e "\e[31mCorrect Option: ${crrt_ans[`echo "$i / 5 - 1" | bc`]}" >> reportcard.txt
-                                    else
-                                        echo -e "\e[33mTimeout!" >> reportcard.txt                                        # store if timeout in yellow
-                                    fi
-                                    k=$(($k+1))
-                                    echo -e "\e[0m--------------------" >> reportcard.txt
-                                done
-                                echo "Total Correct Answers: $count out of $uans_len"  >> reportcard.txt                   # store total correct answers by user
-                                echo "--------------------" >> reportcard.txt
-                                echo "NOTE: Press q to exit this report card" >> reportcard.txt
-                                less -R reportcard.txt                                                          # display entire scrollable report card in color codes
-                                rm user_answer.txt
-                                rm result.txt
-                                rm reportcard.txt
-                                ;;
-                            2)                                                             # case option if user selects to logout from test taking menu
-                                echo "You are logged out!!!"
-                                check=0
-                                cmdtest
-                                ;;
-                            *)
-                                echo "Invalid option selected"                            # default case if invalid option is selected
-                                ;;                                
-                        esac
-                    done
-                else
-                    echo "Incorrect Password! Please enter the correct password."     # check if password given is incorrect then return back to main menu
-                    cmdtest
-                fi
-            else
-                echo "Incorrect Username! Please enter correct username"             # check if username is incorrect then return back to main menu
-                cmdtest
-            fi
-            ;;
-        3)                                                  # case option from main menu if user selects to make a final exit from it
-            echo "Goodbye! Have a nice day"
-            ;;
-        *)
-            echo "Invalid Choice Selected"
-            cmdtest
-            ;;
-    esac
-}
 
 #--------------------------------View Test--------------------------------#
 
