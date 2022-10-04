@@ -144,7 +144,107 @@ function sign_in
 
 function take_test
 {
-	echo "This is working"
+	qbank_lines=`cat questionbank.txt | wc -l`      # store number of lines in question bank file
+    for i in `seq 5 5 $qbank_lines`                 # loop to iterate through the question set each of five lines
+    do
+        clear
+        cat questionbank.txt | head -$i | tail -5   # display the question
+        for j in `seq 10 -1 1`                      # loop to iterate 10 times in reverse
+        do
+            echo -e "\r Enter the choice :\e[31m$j \e[0m \c"    # intializing 10 second counter for user to provide the option
+
+            read -t 1 option
+
+            if [ -z "$option" ]                     # check if no option is selection means timeout
+            then
+                option="e"
+            else
+                break                               # else break the inner loop
+            fi
+        done
+        echo $option >> user_answer.txt             # store option in a temporary file
+        echo "-------------------------"
+    done
+    clear          
+    user_ans=(`cat user_answer.txt`)                # store user selected option in an array
+    crrt_ans=(`cat correctanswer.txt`)              # store all the correct answers in an array
+    uans_len=${#user_ans[@]}
+    count=0
+    for i in `seq 0 $(($uans_len-1))`               # loop to check and compare the correct answers ans store in result.txt file
+    do
+        if [ ${user_ans[$i]} = ${crrt_ans[$i]} ]
+        then
+                                        echo "correct" >> result.txt
+                                        count=$(($count+1))
+        elif [ ${user_ans[$i]} = "e" ]
+        then
+            echo "timeout" >> result.txt
+        else
+            echo "wrong" >> result.txt
+        fi
+    done
+}
+
+#--------------------------------Result--------------------------------#
+
+echo "-----------------------------------" >> reportcard.txt
+                                echo "          Report Card              " >> reportcard.txt
+                                echo "-----------------------------------" >> reportcard.txt
+                                k=0
+                                result=(`cat result.txt`)                      # store contents of result.txt file in an array
+                                for i in `seq 5 5 $qbank_lines`                # loop to display the detailed report card to the user after exam
+                                do
+                                    cat questionbank.txt | head -$i | tail -5 >> reportcard.txt
+                                    if [ ${result[$k]} = "correct" ]                                                     # store if answer is correct in green
+                                    then
+                                        echo -e "\e[32mCorrect Answer!" >> reportcard.txt
+                                        echo -e "\e[32mOption Selected: ${user_ans[`echo "$i / 5 - 1" | bc`]}" >> reportcard.txt
+                                    elif [ ${result[$k]} = "wrong" ]                                                     # store if answer is wrong in red
+                                    then
+                                        echo -e "\e[31mWrong Answer!"  >> reportcard.txt
+                                        echo -ne "\e[31mOption Selected: ${user_ans[`echo "$i / 5 - 1" | bc`]}, " >> reportcard.txt
+                                        echo -e "\e[31mCorrect Option: ${crrt_ans[`echo "$i / 5 - 1" | bc`]}" >> reportcard.txt
+                                    else
+                                        echo -e "\e[33mTimeout!" >> reportcard.txt                                        # store if timeout in yellow
+                                    fi
+                                    k=$(($k+1))
+                                    echo -e "\e[0m--------------------" >> reportcard.txt
+                                done
+                                echo "Total Correct Answers: $count out of $uans_len"  >> reportcard.txt                   # store total correct answers by user
+                                echo "--------------------" >> reportcard.txt
+                                echo "NOTE: Press q to exit this report card" >> reportcard.txt
+                                less -R reportcard.txt                                                          # display entire scrollable report card in color codes
+                                rm user_answer.txt
+                                rm result.txt
+                                rm reportcard.txt
+                                ;;
+                            2)                                                             # case option if user selects to logout from test taking menu
+                                echo "You are logged out!!!"
+                                check=0
+                                cmdtest
+                                ;;
+                            *)
+                                echo "Invalid option selected"                            # default case if invalid option is selected
+                                ;;                                
+                        esac
+                    done
+                else
+                    echo "Incorrect Password! Please enter the correct password."     # check if password given is incorrect then return back to main menu
+                    cmdtest
+                fi
+            else
+                echo "Incorrect Username! Please enter correct username"             # check if username is incorrect then return back to main menu
+                cmdtest
+            fi
+            ;;
+        3)                                                  # case option from main menu if user selects to make a final exit from it
+            echo "Goodbye! Have a nice day"
+            ;;
+        *)
+            echo "Invalid Choice Selected"
+            cmdtest
+            ;;
+    esac
 }
 
 #--------------------------------View Test--------------------------------#
