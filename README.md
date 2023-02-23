@@ -50,11 +50,11 @@ Following are the requirements for this Linux Shell Scripting Project. Divided i
  
 - **Clone this repository:**
 `````
-git clone https://github.com/Aditya-Vishwa/Command-Line-Test.git
+git clone https://github.com/Aditya-Vishwa/ComLiT.git
 `````
 - **Go inside the directory:**
 `````
-cd Command-Line-Test
+cd ComLiT
 `````
 - **Change Mode of the file:**
 `````
@@ -69,10 +69,3 @@ OR
 ./CLT.sh
 `````
 - **And Done.**
-
-## You Can Try this Here:
-© OnWorks
-Go to this cloud platform and do your work.
-`````
-https://www.onworks.net/runos/create-os.html
-`````
